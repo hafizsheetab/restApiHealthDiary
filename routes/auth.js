@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router()
 const auth = require('../auth')
 const jwt = require('jsonwebtoken')
-const {check, validationResult} = require('express-validator')
 const bcrypt = require('bcryptjs')
 const User = require('../Models/User')
 
@@ -14,16 +13,8 @@ router.get('/',auth, async(req,res) => {
     res.send(user)
 
 })
-router.post('/',[
-    check('email','Give Valid email').isEmail(),
-    check('password','Give more than 6 characters').isLength(6)
-],async (req,res) => {
-  
+router.post('/',async (req,res) => {
    try{
-        const errors = validationResult(req);
-        if(!errors.isEmpty()){
-            return res.status(400).json({errors:errors.array()})
-        }
         let {email, password} = req.body
         let user = await User.findOne({email}).select()
         if(!user){

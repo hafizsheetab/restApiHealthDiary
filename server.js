@@ -1,13 +1,15 @@
 const express = require('express')
-const cors = require('cors')
 const connectDB = require('./config/db')
+const cors = require('cors')
 require('dotenv').config()
 const app = express();
 // Connect Database
 connectDB()
 
-app.get('/',(req,res) => res.send(`API Running`))
+app.use(express.json({extende:false}))
 app.use(cors())
+app.get('/',(req,res) => res.send(`API Running`))
+
 app.use('/api/users',require('./routes/users'))
 app.use('/api/auth',require('./routes/auth'))
 app.use('/api/appointment',require('./routes/appointments'))
