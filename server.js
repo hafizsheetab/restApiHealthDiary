@@ -1,6 +1,6 @@
 const express = require('express')
 const connectDB = require('./config/db')
-const corsProtection = require("./middleware/corsProtection")
+const corsProtection = require('./middleware/corsProtection')
 require('dotenv').config()
 const app = express();
 app.use(corsProtection)
