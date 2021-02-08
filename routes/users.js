@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken')
 const {check, validationResult} = require('express-validator')
 const bcrypt = require('bcryptjs')
 const User = require('../models/User')
-const config = require('config')
 
 router.post('/',[
     check('name','Give a valid name').not().isEmpty(),

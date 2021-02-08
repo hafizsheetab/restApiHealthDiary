@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken')
 const {check, validationResult} = require('express-validator')
 const bcrypt = require('bcryptjs')
 const User = require('../models/User')
-const config = require('config')
 
 router.get('/',auth, async(req,res) => {
     let user = await User.findById(req.user.user.id).select("-password");
@@ -39,7 +38,7 @@ router.post('/',[
                 id: user.id
             }
         }
-        jwt.sign(payload,config.get('jwtSecret'),{expiresIn:360000},(err,token) =>{
+        jwt.sign(payload,process.env.JWT_KEY,{expiresIn:360000},(err,token) =>{
             if(err) throw err
             res.json({token})
         })
