@@ -1,13 +1,13 @@
 const express = require('express')
+const cors = require('cors')
 const connectDB = require('./config/db')
-const corsProtection = require('./middleware/corsProtection')
 require('dotenv').config()
 const app = express();
 // Connect Database
 connectDB()
 
 app.get('/',(req,res) => res.send(`API Running`))
-app.use(corsProtection)
+app.use(cors())
 app.use('/api/users',require('./routes/users'))
 app.use('/api/auth',require('./routes/auth'))
 app.use('/api/appointment',require('./routes/appointments'))
