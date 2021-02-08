@@ -4,7 +4,7 @@ const gravatar = require('gravatar')
 const jwt = require('jsonwebtoken')
 const {check, validationResult} = require('express-validator')
 const bcrypt = require('bcryptjs')
-const User = require('../models/User')
+const User = require('../Models/User')
 
 router.post('/',[
     check('name','Give a valid name').not().isEmpty(),

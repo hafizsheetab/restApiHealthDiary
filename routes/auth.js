@@ -4,7 +4,7 @@ const auth = require('../middleware/auth')
 const jwt = require('jsonwebtoken')
 const {check, validationResult} = require('express-validator')
 const bcrypt = require('bcryptjs')
-const User = require('../models/User')
+const User = require('../Models/User')
 
 router.get('/',auth, async(req,res) => {
     let user = await User.findById(req.user.user.id).select("-password");
