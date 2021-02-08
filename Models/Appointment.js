@@ -40,4 +40,4 @@
     }
  })
 
- module.exports = Appointment = mongoose.model('Appointment',AppointmentSchema)
+ module.exports = Appointment = mongoose.model('appointment',AppointmentSchema)

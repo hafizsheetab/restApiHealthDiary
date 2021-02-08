@@ -5,10 +5,6 @@ const DoctorSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
-    hospital: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'hospital'
-    },
     department:{
         type: String,
     },
@@ -31,6 +27,27 @@ const DoctorSchema = new mongoose.Schema({
             },
             passingSchool: {
                 type: String
+            }
+        }
+    ],
+    experiences: [
+        {
+            hospitalName: {
+                type: String
+            },
+            specialization: {
+                type: String
+            },
+            duration: {
+                fromDate: {
+                    type: Date
+                },
+                toDate: {
+                    type: Date
+                },
+                isStillWorking: {
+                    type: Boolean
+                }
             }
         }
     ]
