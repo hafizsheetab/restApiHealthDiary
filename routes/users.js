@@ -11,7 +11,7 @@ router.post('/',[
     check('name','Give a valid name').not().isEmpty(),
     check('email','Give Valid email').isEmail(),
     check('password','Give more than 6 characters').isLength(6),
-    check('usertype','select Type').not().isEmpty()
+    check('userType','select Type').not().isEmpty()
 ],async (req,res) => {
   
    try{
@@ -19,7 +19,7 @@ router.post('/',[
         if(!errors.isEmpty()){
             return res.status(400).json({errors:errors.array()})
         }
-        let {name, email, password, usertype} = req.body
+        let {name, email, password, userType} = req.body
         
         let user = await User.findOne({email})
         if(user){
@@ -37,20 +37,11 @@ router.post('/',[
             name,
             email,
             password,
-            usertype,
+            userType,
             gravatar
         })
         await user.save()
-        const payload = {
-            user: {
-                id: user.id
-            }
-        }
-        jwt.sign(payload,config.get('jwtSecret'),{expiresIn:360000},(err,token) =>{
-            if(err) throw err
-            res.json({token})
-        })
-        
+        res.json({status: true})
 
    }
    catch(error){

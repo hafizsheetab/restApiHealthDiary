@@ -26,7 +26,7 @@ router.post('/',[
             return res.status(400).json({errors:errors.array()})
         }
         let {email, password} = req.body
-        let user = await User.findOne({email}).select('-password')
+        let user = await User.findOne({email}).select()
         if(!user){
             return res.status(400).json({errors:{message: 'Invalid Credentials'}})
         }
@@ -47,7 +47,7 @@ router.post('/',[
 
    }
    catch(error){
-       console.error(error.message)
+       console.error(error)
        res.status(500).send('Server Error')
    }
   

@@ -14,10 +14,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    usertype:{
+    userType:{
         type: String,
         required: true,
-        enum: ['Doctor', 'Patient','Hospital']
+        enum: ['doctor', 'patient']
 
     },
     avatar: {
