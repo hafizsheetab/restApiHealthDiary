@@ -36,6 +36,11 @@ router.put('/',auth, async(req, res) => {
         res.status(400).json({errors: [{msg: err.message}]})
     }
 })
+router.get('/getProfile/:userId',auth, async(req, res) => {
+    let doctor = await Doctor.findOne({user: req.params.userId})
+    doctor = await populateDoctor(doctor)
+    res.json(doctor)
+})
 router.get('/qualifications',auth,async(req, res) => {
     let doctor = await Doctor.findOne({user: req.user._id})
     res.json(doctor.qualifications)

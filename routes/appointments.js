@@ -1,11 +1,17 @@
 const express = require('express')
+const auth = require('../auth')
 const router = express.Router()
 const Appointment = require('../Models/Appointment')
 
-router.get('/:userType', async(req, res) => {
-    let{user} = req.body
-    let appointments = req.params.userType === 'doctor' ? await Appointment.find({doctor: user._id}) : await Appointment.find({patient: user._id})
-    res.json(appointments);
+router.get('/patient',auth,async(req, res) => {
+    let appointments = await Appointment.find({patient: req.user._id})
+    appointments = await Promise.all(appointments.map(appointment => populateAppointment(appointment)))
+    res.json(appointments)
+})
+router.get('/doctor',auth,async(req, res) => {
+    let appointments = await Appointment.find({doctor: req.user._id})
+    appointments = await Promise.all(appointments.map(appointment => populateAppointment(appointment)))
+    res.json(appointments)
 })
 
 router.get('/:appointmentId', async(req, res) => {
