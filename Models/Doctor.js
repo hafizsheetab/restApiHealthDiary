@@ -5,7 +5,7 @@ const DoctorSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
-    department:{
+    specialization:{
         type: String,
     },
     dateOfBirth: {

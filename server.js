@@ -14,7 +14,7 @@ app.use('/api/users',require('./routes/users'))
 app.use('/api/auth',require('./routes/auth'))
 app.use('/api/appointment',require('./routes/appointments'))
 app.use('/api/doctor',require('./routes/doctors'))
-// app.use('/api/patient',require('./routes/patients'))
+app.use('/api/patient',require('./routes/patients'))
 // app.use('/api/hospital',require('./routes/hospitals'))
 
 if (process.env.NODE_ENV === 'production') {

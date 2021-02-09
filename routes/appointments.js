@@ -34,10 +34,10 @@ router.put('/:appointmentId/complete', async(req, res) => {
 
 
 router.post('/', async(req, res) => {
-    let{user, doctor, time} = req.body
+    let{patient, doctor, time} = req.body
     let appointment = new Appointment({
         doctor: doctor.user._id,
-        patient: user._id,
+        patient: patient.user._id,
         time
     })
     await appointment.save()
@@ -46,7 +46,7 @@ router.post('/', async(req, res) => {
 })
 
 const populateAppointment = async (appointment) => {
-    appointment.populate([{path: 'doctor', select: 'name email'}, {path: 'patient', select: 'name email'}]).execPopulate()
+    await appointment.populate([{path: 'doctor', select: 'name email'}, {path: 'patient', select: 'name email'}]).execPopulate()
     return appointment
 } 
 

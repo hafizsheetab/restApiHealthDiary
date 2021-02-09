@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs')
 const User = require('../Models/User')
 
 router.get('/',auth, async(req,res) => {
-    let user = await User.findById(req.user.user.id).select("-password");
+    let user = await User.findById(req.user._id).select("-password");
     if(!user){
         return res.status(400).json({msg: 'userNotFound'})
     }
@@ -16,7 +16,7 @@ router.get('/',auth, async(req,res) => {
 router.post('/',async (req,res) => {
    try{
         let {email, password} = req.body
-        let user = await User.findOne({email}).select()
+        let user = await User.findOne({email})
         if(!user){
             return res.status(400).json({errors:{message: 'Invalid Credentials'}})
         }
@@ -26,7 +26,7 @@ router.post('/',async (req,res) => {
         }
         const payload = {
             user: {
-                id: user.id
+                _id: user._id
             }
         }
         jwt.sign(payload,process.env.JWT_KEY,{expiresIn:360000},(err,token) =>{

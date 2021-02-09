@@ -17,6 +17,15 @@ const PatientSchema = new mongoose.Schema({
     age: {
         type: String
     },
+    dateOfBirth: {
+        type: Date
+    },
+    gender: {
+        type: String
+    },
+    nid: {
+        type: String
+    },
     bloodGroup: {
         type: String,
     }
