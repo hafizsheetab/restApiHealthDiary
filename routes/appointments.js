@@ -18,6 +18,7 @@ router.get('/:appointmentId', async(req, res) => {
     let{user} = req.body
     let appointment = await Appointment.findById(req.params.appointmentId)
     appointment = await populateAppointment(appointment)
+    res.json(appointment)
 })
 router.put('/:appointmentId/confirm', async(req, res) => {
     let{user} = req.body
@@ -38,7 +39,30 @@ router.put('/:appointmentId/complete', async(req, res) => {
     res.json(appointment)
 })
 
+router.get('/:appointmentId/medicines',auth,async(req, res) => {
+    let appointment = await Appointment.findById(req.params.appointmentId)
+    res.json(appointment.medicines)
+})
+router.post('/:appointmentId/medicines',auth, async(req, res) => {
+    let{user,name, takeMorning, takeDay, takeNight} = req.body;
+    let appointment = await Appointment.findById(req.params.appointmentId)
+    let medicine = {
+        name,
+        takeMorning,
+        takeDay,
+        takeNight
+    }
+    appointment.medicines.unshift(medicine)
+    await appointment.save()
+    res.json(appointment.medicines)
+})
 
+router.delete('/:appointmentId/medicines/:medicineId', auth,async(req, res) => {
+    let appointment = await Appointment.findById(req.params.appointmentId)
+    appointment.medicines = appointment.medicines.filter(medicine => medicine._id.toString() !== req.params.medicineId)
+    await appointment.save()
+    res.json(appointment.medicines)
+})
 router.post('/', async(req, res) => {
     let{patient, doctor, time} = req.body
     let appointment = new Appointment({

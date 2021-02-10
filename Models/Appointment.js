@@ -37,7 +37,21 @@
         on: {
             type: Date
         }
-    }
+    },
+    medicines: [ {
+        name: {
+            type: String
+        },
+        takeMorning: {
+            type: Boolean
+        },
+        takeDay: {
+            type: Boolean
+        },
+        takeNight: {
+            type: Boolean
+        }
+    }]
  })
 
  module.exports = Appointment = mongoose.model('appointment',AppointmentSchema)

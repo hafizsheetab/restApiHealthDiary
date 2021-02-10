@@ -24,6 +24,11 @@ router.put('/',auth, async(req, res) => {
     patient = await populatePatient(patient)
     res.json(patient)
 })
+router.get('/getProfile/:userId',auth, async(req, res) => {
+    let patient = await Patient.findOne({user: req.params.userId})
+    patient = await populatePatient(patient)
+    res.json(patient)
+})
 const populatePatient = async (patient) => {
     await patient.populate({path: 'user', select: 'name email'}).execPopulate()
     return patient;
